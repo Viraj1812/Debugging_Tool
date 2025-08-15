@@ -1,7 +1,7 @@
 class AppStrings {
   static const String appName = "Debugging Tools";
   static const String homeTitle = "Developer";
-  static const String homeTitleDesc = "Advanced debugging options";
+  static const String homeTitleDesc = "Debugging options";
   static const String developerOptions = "Developer Options";
   static const String developerOptionsDesc = "Enable advanced settings";
   static const String usbDebugging = "USB Debugging";
