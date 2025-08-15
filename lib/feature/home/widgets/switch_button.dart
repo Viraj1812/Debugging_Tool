@@ -23,30 +23,36 @@ class SwitchButton extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: value
               ? AppColors.primaryGradient
-              : null,
-                  color: value ? null : AppColors.surfaceLight.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: value
-            ? [
-                BoxShadow(
-                  color: AppColors.primary.withValues(alpha: 0.4),
-                  blurRadius: 12,
-                  offset: const Offset(0, 4),
+              : LinearGradient(
+                  colors: [
+                    AppColors.surfaceLight.withValues(alpha: 0.8),
+                    AppColors.surface.withValues(alpha: 0.6),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                 ),
-              ]
-            : [
-                BoxShadow(
-                  color: AppColors.background.withValues(alpha: 0.1),
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-        border: Border.all(
-          color: value 
-              ? AppColors.primary.withValues(alpha: 0.3)
-              : AppColors.surfaceLight.withValues(alpha: 0.3),
-          width: 1.5,
-        ),
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: value
+              ? [
+                  BoxShadow(
+                    color: AppColors.primary.withValues(alpha: 0.4),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ]
+              : [
+                  BoxShadow(
+                    color: AppColors.surfaceLight.withValues(alpha: 0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+          border: Border.all(
+            color: value 
+                ? AppColors.primary.withValues(alpha: 0.3)
+                : AppColors.surfaceLight.withValues(alpha: 0.6),
+            width: 1.5,
+          ),
         ),
         child: AnimatedAlign(
           duration: Duration(milliseconds: AppConstants.animationDurationNormal),
@@ -57,25 +63,27 @@ class SwitchButton extends StatelessWidget {
             height: 24,
             margin: const EdgeInsets.all(4),
             decoration: BoxDecoration(
-                              gradient: value
-                    ? null
-                    : LinearGradient(
-                        colors: [
-                          AppColors.surface.withValues(alpha: 0.8),
-                          AppColors.surfaceLight.withValues(alpha: 0.6),
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                color: value ? AppColors.textPrimary : null,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.background.withValues(alpha: 0.2),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
+              gradient: value
+                  ? null
+                  : LinearGradient(
+                      colors: [
+                        AppColors.textPrimary.withValues(alpha: 0.9),
+                        AppColors.textSecondary.withValues(alpha: 0.8),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+              color: value ? AppColors.textPrimary : null,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: value 
+                      ? AppColors.primary.withValues(alpha: 0.3)
+                      : AppColors.textPrimary.withValues(alpha: 0.3),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
             child: value
                 ? Icon(

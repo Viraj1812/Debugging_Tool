@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
 class AppStyles {
   // Display Text Styles
-  static const TextStyle displayLarge = TextStyle(
+  static TextStyle get displayLarge => GoogleFonts.inter(
     fontSize: 48,
     fontWeight: FontWeight.w800,
     color: AppColors.textPrimary,
     letterSpacing: -0.5,
   );
   
-  static const TextStyle displayMedium = TextStyle(
+  static TextStyle get displayMedium => GoogleFonts.inter(
     fontSize: 36,
     fontWeight: FontWeight.w700,
     color: AppColors.textPrimary,
     letterSpacing: -0.25,
   );
   
-  static const TextStyle displaySmall = TextStyle(
+  static TextStyle get displaySmall => GoogleFonts.inter(
     fontSize: 28,
     fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
@@ -25,21 +26,21 @@ class AppStyles {
   );
   
   // Headline Text Styles
-  static const TextStyle headlineLarge = TextStyle(
+  static TextStyle get headlineLarge => GoogleFonts.inter(
     fontSize: 32,
     fontWeight: FontWeight.w700,
     color: AppColors.textPrimary,
     letterSpacing: -0.25,
   );
   
-  static const TextStyle headlineMedium = TextStyle(
+  static TextStyle get headlineMedium => GoogleFonts.inter(
     fontSize: 24,
     fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
     letterSpacing: -0.1,
   );
   
-  static const TextStyle headlineSmall = TextStyle(
+  static TextStyle get headlineSmall => GoogleFonts.inter(
     fontSize: 20,
     fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
@@ -47,21 +48,21 @@ class AppStyles {
   );
   
   // Title Text Styles
-  static const TextStyle titleLarge = TextStyle(
+  static TextStyle get titleLarge => GoogleFonts.inter(
     fontSize: 18,
     fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
     letterSpacing: 0.0,
   );
   
-  static const TextStyle titleMedium = TextStyle(
+  static TextStyle get titleMedium => GoogleFonts.inter(
     fontSize: 16,
     fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
     letterSpacing: 0.0,
   );
   
-  static const TextStyle titleSmall = TextStyle(
+  static TextStyle get titleSmall => GoogleFonts.inter(
     fontSize: 14,
     fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
@@ -125,5 +126,22 @@ class AppStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.textTertiary,
     letterSpacing: 1.5,
+  );
+  
+  // Monospace Text Style for code/debugging
+  static TextStyle get codeText => GoogleFonts.jetBrainsMono(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: AppColors.textPrimary,
+    letterSpacing: 0.0,
+  );
+  
+  // Enhanced Body Text with Inter font
+  static TextStyle get bodyLargeEnhanced => GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: AppColors.textSecondary,
+    letterSpacing: 0.15,
+    height: 1.6,
   );
 }

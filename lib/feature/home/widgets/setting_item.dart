@@ -121,30 +121,30 @@ class SettingItem extends StatelessWidget {
               ],
             ),
             
-            // Settings Icon Section
-            if (showSettingsIcon) ...[
+            // Settings Icon Section - Only show when both showSettingsIcon is true AND switch is enabled
+            // Debug: print('showSettingsIcon: $showSettingsIcon, value: $value');
+            if (showSettingsIcon && value) ...[
               const SizedBox(height: AppConstants.spacingMd),
               GestureDetector(
                 onTap: _openWirelessDebuggingSettings,
                 child: AnimatedSize(
                   duration: Duration(milliseconds: AppConstants.animationDurationNormal),
                   child: Container(
-                    height: value ? null : 0,
                     padding: const EdgeInsets.all(AppConstants.spacingMd),
                     decoration: BoxDecoration(
-                                           gradient: LinearGradient(
-                       colors: [
-                         AppColors.surface.withValues(alpha: 0.5),
-                         AppColors.surfaceLight.withValues(alpha: 0.3),
-                       ],
-                       begin: Alignment.topLeft,
-                       end: Alignment.bottomRight,
-                     ),
-                     borderRadius: BorderRadius.circular(AppConstants.borderRadiusMd),
-                     border: Border.all(
-                       color: AppColors.surfaceLight.withValues(alpha: 0.3),
-                       width: 1,
-                     ),
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.surface.withValues(alpha: 0.5),
+                          AppColors.surfaceLight.withValues(alpha: 0.3),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(AppConstants.borderRadiusMd),
+                      border: Border.all(
+                        color: AppColors.surfaceLight.withValues(alpha: 0.3),
+                        width: 1,
+                      ),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -152,14 +152,14 @@ class SettingItem extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.all(AppConstants.spacingSm),
                           decoration: BoxDecoration(
-                                                     color: AppColors.accent.withValues(alpha: 0.2),
-                         borderRadius: BorderRadius.circular(AppConstants.borderRadiusSm),
-                       ),
-                       child: Icon(
-                         Icons.qr_code_scanner_outlined,
-                         color: AppColors.accent,
-                         size: AppConstants.iconSizeMd,
-                       ),
+                            color: AppColors.accent.withValues(alpha: 0.2),
+                            borderRadius: BorderRadius.circular(AppConstants.borderRadiusSm),
+                          ),
+                          child: Icon(
+                            Icons.qr_code_scanner_outlined,
+                            color: AppColors.accent,
+                            size: AppConstants.iconSizeMd,
+                          ),
                         ),
                         const SizedBox(width: AppConstants.spacingMd),
                         Text(

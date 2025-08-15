@@ -1,7 +1,8 @@
 import 'package:debug_mate/constants/app_strings.dart';
 import 'package:debug_mate/constants/app_colors.dart';
-import 'package:debug_mate/feature/home/home_screen.dart';
+import 'package:debug_mate/feature/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,6 +25,10 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
         ),
         scaffoldBackgroundColor: AppColors.background,
+        // Beautiful typography with Inter font
+        textTheme: GoogleFonts.interTextTheme(
+          Theme.of(context).textTheme,
+        ),
         cardTheme: CardThemeData(
           color: AppColors.card,
           elevation: 0,
@@ -48,7 +53,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       navigatorKey: globalNavigator,
-      home: const HomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }

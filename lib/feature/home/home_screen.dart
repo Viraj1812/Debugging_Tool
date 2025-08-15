@@ -47,46 +47,57 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         decoration: const BoxDecoration(
           gradient: AppColors.backgroundGradient,
         ),
-        child: SafeArea(
-          child: Column(
-            children: [
-              // Header Section
-              HomeHeader(),
-              
-              // Content Section
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: AppConstants.spacingLg,
-                  ),
-                  child: Column(
-                    children: [
-                      // Stats Cards Row
-                      _buildStatsRow(),
-                      
-                      const SizedBox(height: AppConstants.spacingXl),
-                      
-                      // Settings Section Title
-                      _buildSectionTitle(),
-                      
-                      const SizedBox(height: AppConstants.spacingLg),
-                      
-                      // Settings Items
-                      Expanded(
-                        child: FadeTransition(
-                          opacity: _fadeAnimation,
-                          child: SlideTransition(
-                            position: _slideAnimation,
-                            child: _buildSettingsList(),
-                          ),
-                        ),
+        child: Stack(
+          children: [
+            // Background pattern
+            Positioned.fill(
+              child: CustomPaint(
+                painter: BackgroundPatternPainter(),
+              ),
+            ),
+            // Main content
+            SafeArea(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.only(bottom: AppConstants.spacingXl),
+                child: Column(
+                  children: [
+                    // Header Section
+                    HomeHeader(),
+                    
+                    // Content Section
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: AppConstants.spacingLg,
                       ),
-                    ],
-                  ),
+                      child: Column(
+                        children: [
+                          // Stats Cards Row
+                          _buildStatsRow(),
+                          
+                          const SizedBox(height: AppConstants.spacingXl),
+                          
+                          // Settings Section Title
+                          _buildSectionTitle(),
+                          
+                          const SizedBox(height: AppConstants.spacingLg),
+                          
+                          // Settings Items
+                          FadeTransition(
+                            opacity: _fadeAnimation,
+                            child: SlideTransition(
+                              position: _slideAnimation,
+                              child: _buildSettingsList(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -131,35 +142,59 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       decoration: BoxDecoration(
         gradient: isActive 
             ? LinearGradient(
-                colors: [color.withValues(alpha: 0.2), color.withValues(alpha: 0.1)],
+                colors: [color.withValues(alpha: 0.15), color.withValues(alpha: 0.05)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               )
             : null,
-        color: isActive ? null : AppColors.surface.withValues(alpha: 0.3),
+        color: isActive ? null : AppColors.surface.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(AppConstants.borderRadiusLg),
         border: Border.all(
-          color: isActive ? color.withValues(alpha: 0.3) : AppColors.surfaceLight.withValues(alpha: 0.2),
-          width: 1,
+          color: isActive ? color.withValues(alpha: 0.4) : AppColors.surfaceLight.withValues(alpha: 0.15),
+          width: 1.5,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: isActive 
+                ? color.withValues(alpha: 0.2)
+                : AppColors.surface.withValues(alpha: 0.1),
+            blurRadius: isActive ? 20 : 10,
+            spreadRadius: isActive ? 2 : 0,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-                              Container(
-                  padding: const EdgeInsets.all(AppConstants.spacingSm),
-                  decoration: BoxDecoration(
-                    color: isActive ? color.withValues(alpha: 0.2) : AppColors.surfaceLight.withValues(alpha: 0.3),
-                    borderRadius: BorderRadius.circular(AppConstants.borderRadiusMd),
-                  ),
-                  child: Icon(
-                    icon,
-                    color: isActive ? color : AppColors.textTertiary,
-                    size: AppConstants.iconSizeMd,
-                  ),
+              Container(
+                padding: const EdgeInsets.all(AppConstants.spacingSm),
+                decoration: BoxDecoration(
+                  gradient: isActive 
+                      ? LinearGradient(
+                          colors: [color.withValues(alpha: 0.3), color.withValues(alpha: 0.1)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        )
+                      : null,
+                  color: isActive ? null : AppColors.surfaceLight.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(AppConstants.borderRadiusMd),
+                  boxShadow: isActive ? [
+                    BoxShadow(
+                      color: color.withValues(alpha: 0.3),
+                      blurRadius: 8,
+                      spreadRadius: 1,
+                    ),
+                  ] : null,
                 ),
+                child: Icon(
+                  icon,
+                  color: isActive ? color : AppColors.textTertiary,
+                  size: AppConstants.iconSizeMd,
+                ),
+              ),
               const Spacer(),
               Container(
                 padding: const EdgeInsets.symmetric(
@@ -167,14 +202,28 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   vertical: AppConstants.spacingXs,
                 ),
                 decoration: BoxDecoration(
-                  color: isActive ? color : AppColors.surfaceLight,
+                  gradient: isActive 
+                      ? LinearGradient(
+                          colors: [color, color.withValues(alpha: 0.8)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        )
+                      : null,
+                  color: isActive ? null : AppColors.surfaceLight.withValues(alpha: 0.3),
                   borderRadius: BorderRadius.circular(AppConstants.borderRadiusSm),
+                  boxShadow: isActive ? [
+                    BoxShadow(
+                      color: color.withValues(alpha: 0.4),
+                      blurRadius: 6,
+                      spreadRadius: 1,
+                    ),
+                  ] : null,
                 ),
                 child: Text(
                   isActive ? 'ON' : 'OFF',
                   style: AppStyles.labelSmall.copyWith(
                     color: isActive ? AppColors.textPrimary : AppColors.textTertiary,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
@@ -185,6 +234,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             title,
             style: AppStyles.bodyMedium.copyWith(
               color: AppColors.textSecondary,
+              fontWeight: FontWeight.w500,
             ),
           ),
           const SizedBox(height: AppConstants.spacingXs),
@@ -192,7 +242,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             value,
             style: AppStyles.titleMedium.copyWith(
               color: isActive ? color : AppColors.textPrimary,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w700,
+              fontSize: 18,
             ),
           ),
         ],
@@ -201,30 +252,64 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   Widget _buildSectionTitle() {
-    return Row(
-      children: [
-        Container(
-          width: 4,
-          height: 24,
-          decoration: BoxDecoration(
-            gradient: AppColors.primaryGradient,
-            borderRadius: BorderRadius.circular(2),
-          ),
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppConstants.spacingMd,
+        vertical: AppConstants.spacingSm,
+      ),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            AppColors.primary.withValues(alpha: 0.1),
+            AppColors.primary.withValues(alpha: 0.05),
+          ],
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
         ),
-        const SizedBox(width: AppConstants.spacingMd),
-        Text(
-          'Debug Settings',
-          style: AppStyles.headlineSmall.copyWith(
-            color: AppColors.textPrimary,
-          ),
+        borderRadius: BorderRadius.circular(AppConstants.borderRadiusMd),
+        border: Border.all(
+          color: AppColors.primary.withValues(alpha: 0.2),
+          width: 1,
         ),
-      ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 4,
+            height: 24,
+            decoration: BoxDecoration(
+              gradient: AppColors.primaryGradient,
+              borderRadius: BorderRadius.circular(2),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.primary.withValues(alpha: 0.4),
+                  blurRadius: 8,
+                  spreadRadius: 1,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: AppConstants.spacingMd),
+          Text(
+            'Debug Settings',
+            style: AppStyles.headlineSmall.copyWith(
+              color: AppColors.textPrimary,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const Spacer(),
+          Icon(
+            Icons.settings,
+            color: AppColors.primary.withValues(alpha: 0.7),
+            size: AppConstants.iconSizeMd,
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildSettingsList() {
-    return ListView(
-      padding: EdgeInsets.zero,
+    return Column(
       children: [
         SettingItem(
           icon: Icons.code,
@@ -314,5 +399,117 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   _updateSettings(SettingsModel settings) async {
     _settings = await _settingsService.updateSettings(settings);
     setState(() {});
+  }
+}
+
+class BackgroundPatternPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = AppColors.surface.withValues(alpha: 0.03)
+      ..strokeWidth = 1
+      ..style = PaintingStyle.stroke;
+
+    // Draw subtle grid pattern
+    for (double i = 0; i < size.width; i += 40) {
+      canvas.drawLine(
+        Offset(i, 0),
+        Offset(i, size.height),
+        paint,
+      );
+    }
+    
+    for (double i = 0; i < size.height; i += 40) {
+      canvas.drawLine(
+        Offset(0, i),
+        Offset(size.width, i),
+        paint,
+      );
+    }
+
+    // Draw subtle circles
+    final circlePaint = Paint()
+      ..color = AppColors.primary.withValues(alpha: 0.02)
+      ..style = PaintingStyle.fill;
+
+    canvas.drawCircle(
+      Offset(size.width * 0.1, size.height * 0.2),
+      60,
+      circlePaint,
+    );
+
+    canvas.drawCircle(
+      Offset(size.width * 0.9, size.height * 0.8),
+      80,
+      circlePaint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+class ShimmerEffect extends StatefulWidget {
+  final Color color;
+  
+  const ShimmerEffect({super.key, required this.color});
+  
+  @override
+  State<ShimmerEffect> createState() => _ShimmerEffectState();
+}
+
+class _ShimmerEffectState extends State<ShimmerEffect>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 2000),
+      vsync: this,
+    );
+    
+    _animation = Tween<double>(begin: -1.0, end: 2.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+    
+    _controller.repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return ShaderMask(
+          shaderCallback: (bounds) {
+            return LinearGradient(
+              begin: Alignment(_animation.value - 1, 0),
+              end: Alignment(_animation.value, 0),
+              colors: [
+                widget.color.withValues(alpha: 0.0),
+                widget.color.withValues(alpha: 0.1),
+                widget.color.withValues(alpha: 0.0),
+              ],
+              stops: const [0.0, 0.5, 1.0],
+            ).createShader(bounds);
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(AppConstants.borderRadiusLg),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
